@@ -1,0 +1,23 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+         version="2.0">
+<persistence-unit name="piggy-bank-unit">
+  <provider>org.hibernate.ejb.HibernatePersistence</provider>
+  <jta-data-source>java:jboss/datasources/PiggyBankDB</jta-data-source>
+  
+  <class>com.piggybank.server.model.PiggyExpense</class>
+  <class>com.piggybank.server.model.PiggyFutureExpense</class>
+  <class>com.piggybank.server.model.PiggyExpenseCategory</class>
+  <class>com.piggybank.server.model.PiggyExpenseCategoryName</class>
+  <class>com.piggybank.server.model.PiggyIncome</class>
+  <class>com.piggybank.server.model.PiggySaving</class>
+  <exclude-unlisted-classes>true</exclude-unlisted-classes>
+  <properties>
+     <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+     <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+     <property name="hibernate.show_sql" value="true"/>
+     <property name="hibernate.hbm2ddl.auto" value="update"/>
+   </properties>
+  </persistence-unit>
+</persistence>
