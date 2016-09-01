@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="550.0" maxWidth="600.0" minHeight="550.0" minWidth="600.0" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piggybank.app.controller.PiggyBalanceController">
+   <children>
+      <HBox maxHeight="100.0" minHeight="100.0" prefHeight="100.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0" text="Balance in" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="monthYearLabel" prefHeight="100.0" prefWidth="300.0">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="60.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="60.0" prefWidth="250.0" text="Expenses">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="expensesLabel" alignment="CENTER" prefHeight="60.0" prefWidth="300.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="60.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="60.0" prefWidth="250.0" text="Incomes">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="incomesLabel" alignment="CENTER" prefHeight="60.0" prefWidth="300.0" textFill="GREEN">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="60.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="60.0" prefWidth="250.0" text="Balance">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="balanceLabel" alignment="CENTER" prefHeight="60.0" prefWidth="300.0">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="60.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="60.0" prefWidth="250.0" text="Current savings">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentSavingsLabel" alignment="CENTER" prefHeight="60.0" prefWidth="300.0">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</VBox>

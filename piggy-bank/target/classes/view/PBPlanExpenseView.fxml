@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxWidth="350.0" minWidth="350.0" prefHeight="174.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piggybank.app.controller.PiggyPlanExpenseController">
+   <children>
+      <HBox>
+         <children>
+            <Label alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="160.0" text="Plan Expense ">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="monthYearLabel" prefHeight="37.0" prefWidth="190.0">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <GridPane maxHeight="-Infinity" maxWidth="330.0" minHeight="-Infinity" minWidth="330.0" prefHeight="90.0" prefWidth="330.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="135.0" prefWidth="135.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="195.0" prefWidth="195.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Category" />
+            <Label text="Predicted Amount" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="categoryNameChoiceBox" maxWidth="180.0" minWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" />
+            <TextField fx:id="predictedAmountField" maxWidth="180.0" minWidth="180.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" />
+         </VBox.margin>
+      </GridPane>
+      <Pane prefHeight="48.0" prefWidth="300.0">
+         <children>
+            <Button layoutX="178.0" layoutY="10.0" mnemonicParsing="false" onMouseReleased="#handleDiscardButtonReleased" prefHeight="30.0" prefWidth="70.0" text="Discard" />
+            <Button layoutX="264.0" layoutY="10.0" mnemonicParsing="false" onMouseReleased="#handleConfirmButtonReleased" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
+            <Label fx:id="errorLabel" layoutX="10.0" layoutY="10.0" prefHeight="30.0" textFill="#b81212">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</VBox>

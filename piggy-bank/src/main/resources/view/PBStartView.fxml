@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piggybank.app.view.PiggyStartView">
+   <children>
+      <HBox prefHeight="58.0" prefWidth="350.0" spacing="5.0">
+         <children>
+            <Label alignment="CENTER_RIGHT" prefHeight="59.0" prefWidth="175.0" text="Available Balance in">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="monthLabel" prefHeight="61.0" prefWidth="170.0" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Label fx:id="availableBalanceLabel" alignment="TOP_CENTER" prefHeight="40.0" prefWidth="366.0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <VBox prefHeight="112.0" prefWidth="366.0" spacing="10.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="50.0" prefWidth="113.0" text="Expense">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="expenseLabel" alignment="CENTER" prefHeight="51.0" prefWidth="237.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="50.0" prefWidth="113.0" text="Income">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="incomeLabel" alignment="CENTER" prefHeight="51.0" prefWidth="237.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
