@@ -8,47 +8,30 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="550.0" maxWidth="600.0" minHeight="550.0" minWidth="600.0" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piggybank.app.controller.PiggyIncomesController">
+<VBox id="content-window" stylesheets="@../MainWindow.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piggybank.app.controller.PiggyIncomesController">
    <children>
-      <HBox fx:id="headerBox" maxHeight="70.0" minHeight="70.0" prefHeight="70.0" prefWidth="510.0" spacing="10.0">
+      <HBox id="header-box" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onMouseReleased="#handlePreviousButtonReleased" prefHeight="70.0" text="&lt;" />
-            <Label alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="250.0" text="Incomes in" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label fx:id="monthYearLabel" prefHeight="70.0" prefWidth="260.0">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Button mnemonicParsing="false" onMouseReleased="#handleNextButtonReleased" prefHeight="70.0" text="&gt;" />
+            <Button mnemonicParsing="false" onMouseReleased="#handlePreviousButtonReleased" text="&lt;" />
+            <Label fx:id="headerLabel" id="header-title-label" />
+            <Button mnemonicParsing="false" onMouseReleased="#handleNextButtonReleased" text="&gt;" />
          </children>
       </HBox>
-      <GridPane fx:id="headerGrid" maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
+      <GridPane id="second-header-box">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="272.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="238.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="413.0" minWidth="186.0" prefWidth="364.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.0" minWidth="264.0" prefWidth="264.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox prefHeight="15.0" prefWidth="243.0" spacing="10.0" GridPane.columnIndex="1">
+            <HBox prefHeight="15.0" prefWidth="243.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label prefHeight="15.0" prefWidth="107.0" text="Total incomes:">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="totalIncomesLabel" alignment="CENTER_RIGHT" prefHeight="16.0">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
+                  <Label id="header-text" prefHeight="15.0" prefWidth="107.0" text="Total incomes:" />
+                  <Label id="header-text-value" fx:id="totalIncomesLabel" alignment="CENTER_RIGHT" prefHeight="16.0" />
                </children>
             </HBox>
          </children>

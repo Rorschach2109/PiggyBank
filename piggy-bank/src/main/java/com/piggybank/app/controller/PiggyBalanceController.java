@@ -15,15 +15,11 @@ import com.piggybank.server.model.PiggyIncome;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 
 public class PiggyBalanceController implements IPBController {
 
-	private PiggyBankIncomes piggyIncomesRemote;
-	private PiggyBankExpenses piggyExpensesRemote;
-	
 	@FXML
-	private Label monthYearLabel;
+	private Label headerLabel;
 	@FXML
 	private Label expensesLabel;
 	@FXML
@@ -32,19 +28,24 @@ public class PiggyBalanceController implements IPBController {
 	private Label balanceLabel;
 	@FXML
 	private Label currentSavingsLabel;
+	
+	private final PiggyBankIncomes piggyIncomesRemote;
+	private final PiggyBankExpenses piggyExpensesRemote;
+	private final String headerText;
 
 	public PiggyBalanceController() {
 		this.piggyIncomesRemote = new PiggyBankIncomes();
 		this.piggyExpensesRemote = new PiggyBankExpenses();
+		this.headerText = "Balance in ";
 	}
 	
 	public void setCurrentMonthName() {
-		this.monthYearLabel.setText(
+		this.headerLabel.setText(this.headerText + 
 				LocalDateFormatter.getMonthYearStringFromDate(LocalDate.now()));
 	}
 	
 	@Override
-	public final void init(double width, double height) {
+	public final void init() {
 		update();
 	}
 	
@@ -64,17 +65,12 @@ public class PiggyBalanceController implements IPBController {
 	}
 	
 	private void setComputedLabel(Label label, double amount) {
-		Color textColor = Color.BLACK;
 		String balanceSign = "";
 		
 		if (amount > 0.0) {
-			textColor = Color.GREEN;
 			balanceSign = "+";
-		} else if (amount < 0.0) {
-			textColor = Color.RED;
 		}
 		
-		label.setTextFill(textColor);
 		label.setText(balanceSign + String.valueOf(amount));
 	}
 	

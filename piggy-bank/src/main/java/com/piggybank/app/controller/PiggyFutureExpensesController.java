@@ -46,8 +46,8 @@ public class PiggyFutureExpensesController implements IPBController {
 	}
 	
 	@Override
-	public final void init(double width, double height) {
-		createFutureExpensesListView(width, height);
+	public final void init() {
+		createFutureExpensesListView();
 		setFutureExpensesHandlers();
 		insertFutureExpensesList();
 		setTotalSavingsLabel();
@@ -64,7 +64,7 @@ public class PiggyFutureExpensesController implements IPBController {
 		setHeaderLabels();
 	}
 	
-	private void createFutureExpensesListView(double width, double height) {
+	private void createFutureExpensesListView() {
 		this.futureExpensesList = new ListView<>();
 		
 		this.futureExpensesList.setCellFactory(new Callback<ListView<PiggyFutureExpense>, ListCell<PiggyFutureExpense>>() {

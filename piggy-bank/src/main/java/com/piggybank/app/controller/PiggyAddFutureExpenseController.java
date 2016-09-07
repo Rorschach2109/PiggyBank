@@ -15,6 +15,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class PiggyAddFutureExpenseController implements IPBTopStageController {
 
@@ -66,6 +68,22 @@ public class PiggyAddFutureExpenseController implements IPBTopStageController {
 		List<PiggyExpenseCategoryName> expensesCategoryNameList = this.piggyExpensesRemote.getExpenseCategoryNames();
 		Collections.sort(expensesCategoryNameList);
 		this.expenseCategoryChoiceBox.setItems(FXCollections.observableArrayList(expensesCategoryNameList));
+	}
+	
+	@FXML
+	private void handleOnKeyReleased(final KeyEvent keyEvent) {
+		KeyCode eventKeyCode = keyEvent.getCode();
+		
+		switch (eventKeyCode) {
+			case ESCAPE:
+				handleDiscardButtonReleased();
+				break;
+			case ENTER:
+				handleConfirmButtonReleased();
+				break;
+			default:
+				return;
+		}
 	}
 	
 	@FXML

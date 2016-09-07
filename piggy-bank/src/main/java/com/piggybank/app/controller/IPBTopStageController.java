@@ -8,7 +8,6 @@ public interface IPBTopStageController extends IPBMarkController {
 		
 	}
 	
-	public void init();
 	public <T> void setContent(T item);
 	public <T> void setConfirmHandler(Predicate<T> confirmHandler);
 	public void setDiscardHandler(Runnable discardHandler);

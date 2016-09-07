@@ -14,36 +14,32 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 public class PiggyIncomesController implements IPBController {
 
 	@FXML
-	private Label monthYearLabel;
+	private Label headerLabel;
 	@FXML
 	private Label totalIncomesLabel;
 	@FXML
 	private Pane incomesPane;
-	@FXML
-	private HBox headerBox;
-	@FXML
-	private GridPane headerGrid;
 	
 	private LocalDate currentDate;
 	private ListView<PiggyIncome> incomesListView;
 	private final PiggyBankIncomes piggyIncomesRemote;
+	private final String headerText;
 	
 	{
 		this.currentDate = LocalDate.now();
 		this.piggyIncomesRemote = new PiggyBankIncomes();
+		this.headerText = "Incomes in ";
 	}
 	
 	@Override
-	public final void init(double width, double height) {
-		createExpenseCategoryListView(width, height);
+	public final void init() {
+		createExpenseCategoryListView();
 		insertExpensesList();
 		update();
 	}
@@ -55,7 +51,7 @@ public class PiggyIncomesController implements IPBController {
 	}
 	
 	private void setCurrentMonthYear() {
-		this.monthYearLabel.setText(
+		this.headerLabel.setText(this.headerText + 
 				LocalDateFormatter.getMonthYearStringFromDate(this.currentDate));
 	}
 	
@@ -69,7 +65,7 @@ public class PiggyIncomesController implements IPBController {
 		this.totalIncomesLabel.setText(String.valueOf(totalIncomesAmount));
 	}
 		
-	private void createExpenseCategoryListView(double width, double height) {
+	private void createExpenseCategoryListView() {
 		this.incomesListView = new ListView<>();
 		
 		this.incomesListView.setCellFactory(new Callback<ListView<PiggyIncome>, ListCell<PiggyIncome>>() {
@@ -79,9 +75,8 @@ public class PiggyIncomesController implements IPBController {
 			}
 		});
 		
-		double listHeight = height - (headerBox.getPrefHeight() + headerGrid.getPrefHeight());
-		this.incomesListView.setMinSize(width, listHeight);
-		this.incomesListView.setMaxSize(width, listHeight);
+		this.incomesListView.setMinSize(incomesPane.getPrefWidth(), incomesPane.getPrefHeight());
+		this.incomesListView.setMaxSize(incomesPane.getPrefWidth(), incomesPane.getPrefHeight());
 	}
 	
 	private void insertExpensesList() {

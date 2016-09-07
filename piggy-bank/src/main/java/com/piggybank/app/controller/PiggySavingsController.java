@@ -19,7 +19,7 @@ import javafx.scene.layout.AnchorPane;
 public class PiggySavingsController implements IPBController {
 
 	@FXML
-	private Label yearLabel;
+	private Label headerLabel;
 	@FXML
 	private Label totalSavingsLabel;
 	@FXML
@@ -32,15 +32,17 @@ public class PiggySavingsController implements IPBController {
 	private Year currentYear;
 	private List<PiggySaving> currentYearSavings;
 	private final PiggyBankIncomes piggyIncomesRemote;
+	private final String headerText;
 	
 	{
 		this.currentYear = Year.now();
 		this.piggyIncomesRemote = new PiggyBankIncomes();
+		this.headerText = "Savings report ";
 	}
 	
 	@Override
-	public void init(double width, double height) {
-		configureChart(width, height);
+	public void init() {
+		configureChart();
 		setTotalSavingsLabel();
 		update();
 	}
@@ -57,7 +59,7 @@ public class PiggySavingsController implements IPBController {
 		Collections.sort(this.currentYearSavings);
 	}
 	
-	private void configureChart(double width, double height) {
+	private void configureChart() {
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
 		
@@ -65,7 +67,8 @@ public class PiggySavingsController implements IPBController {
 		yAxis.setLabel("Savings");
 		
 		this.savingsChart = new LineChart<>(xAxis, yAxis);
-		this.savingsChart.setMaxSize(width * 0.9, this.savingsAnchor.getPrefHeight()* 0.9);
+		this.savingsChart.setMaxSize(this.savingsAnchor.getPrefWidth() * 0.9, 
+				this.savingsAnchor.getPrefHeight()* 0.9);
 		this.savingsAnchor.getChildren().add(this.savingsChart);
 	}
 	
@@ -84,7 +87,8 @@ public class PiggySavingsController implements IPBController {
 	}
 	
 	private void setHeaderLabels() {
-		this.yearLabel.setText(String.valueOf(this.currentYear.getValue()));
+		this.headerLabel.setText(this.headerText + 
+				String.valueOf(this.currentYear.getValue()));
 	}
 	
 	private void setTotalSavingsLabel() {

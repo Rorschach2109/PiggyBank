@@ -109,6 +109,7 @@ public class PiggyExpenseDetailsCell extends AbstractPiggyCell<PiggyExpense> {
 	
 	private final void configureButtons() {
 		this.removeExpenseButton.setText("-");
+		this.removeExpenseButton.setId("list-action-button");
 		this.removeExpenseButton.setOnMouseReleased(new EventHandler<MouseEvent>() {
 
 			@Override

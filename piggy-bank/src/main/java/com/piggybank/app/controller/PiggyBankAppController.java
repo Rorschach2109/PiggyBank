@@ -41,6 +41,7 @@ public class PiggyBankAppController {
 	private void setMainWindow() {
 		Scene mainScene = layoutManager.loadScene(ResourcePathFinder.PB_MAIN_WINDOW);
 		PiggyMainWindowController mainController = (PiggyMainWindowController) layoutManager.getCurrentController();
+		mainController.init();
 		mainController.setMainStage(mainStage);
 		
 		this.mainStage.setResizable(false);

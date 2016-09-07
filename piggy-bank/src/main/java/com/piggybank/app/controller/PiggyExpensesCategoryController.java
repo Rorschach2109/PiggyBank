@@ -22,19 +22,18 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class PiggyExpensesCategoryController implements IPBController {
 
 	@FXML
 	private Label headerLabel;
-	@FXML
-	private Label monthYearLabel;
 	@FXML
 	private Label firstHeaderTextLabel;
 	@FXML
@@ -46,14 +45,13 @@ public class PiggyExpensesCategoryController implements IPBController {
 	@FXML
 	private Pane expensesPane;
 	@FXML
-	private HBox headerBox;
-	@FXML
 	private GridPane headerGrid;
 	@FXML
 	private Button nextMonthButton;
 	@FXML
 	private Button previousMonthButton;
 	
+	private HBox extraButtonsBox;
 	private Button addExpenseButton;
 	private Button returnButton;
 	
@@ -67,10 +65,12 @@ public class PiggyExpensesCategoryController implements IPBController {
 	private PiggyExpenseCategory selectedExpenseCategory;
 	
 	private final PiggyBankExpenses piggyExpensesRemote;
+	private final String headerText;
 	
 	{
 		this.currentDate = LocalDate.now();
 		this.piggyExpensesRemote = new PiggyBankExpenses();
+		this.headerText = "Expenses in ";
 	}
 	
 	@Override
@@ -79,9 +79,9 @@ public class PiggyExpensesCategoryController implements IPBController {
 	}
 	
 	@Override
-	public final void init(double width, double height) {
-		this.contentListWidth = width;
-		this.contentListHeight = height;
+	public final void init() {
+		this.contentListWidth = expensesPane.getPrefWidth();
+		this.contentListHeight = expensesPane.getPrefHeight();
 		
 		createExpenseCategoryListView();
 		setExpenseCategoryListHandlers();
@@ -94,15 +94,15 @@ public class PiggyExpensesCategoryController implements IPBController {
 	
 	private void update() {
 		setExpensesContent();
-		setCurrentMonthYear();
+		setHeaderTitle();
 		setExpenseCategoriesHeaderLabels();
 		setButtonsAvailability(false);
 		setHeaders(false);
 	}
 	
-	private void setCurrentMonthYear() {
-		this.monthYearLabel.setText(
-				LocalDateFormatter.getMonthYearStringFromDate(this.currentDate));
+	private void setHeaderTitle() {
+		String headerTitle = this.headerText + LocalDateFormatter.getMonthYearStringFromDate(this.currentDate);
+		this.headerLabel.setText(headerTitle);
 	}
 	
 	private void setExpenseCategoriesSummaryLabels() {
@@ -116,7 +116,6 @@ public class PiggyExpensesCategoryController implements IPBController {
 		
 		this.secondHeaderLabel.setText(String.valueOf(predictedExpenseAmount));
 		this.firstHeaderLabel.setText(String.valueOf(realExpenseAmount));
-		setSummaryLabelsColor();
 	}
 	
 	private void setExpensesSummaryLabels() {
@@ -127,22 +126,6 @@ public class PiggyExpensesCategoryController implements IPBController {
 		
 		this.firstHeaderLabel.setText(String.valueOf(categoryExpensesAmount));
 		this.secondHeaderLabel.setText(String.valueOf(this.selectedExpenseCategory.getPredictedAmount()));
-		setSummaryLabelsColor();
-	}
-	
-	private void setSummaryLabelsColor() {
-		double firstHeaderValue = Double.parseDouble(this.firstHeaderLabel.getText());
-		double secondHeaderValue = Double.parseDouble(this.secondHeaderLabel.getText());
-		double ratio = firstHeaderValue / secondHeaderValue;
-		
-		Color firstHeaderColor = Color.GREEN;
-		if (ratio > 0.5 && ratio <= 0.8) {
-			firstHeaderColor = Color.ORANGE;
-		} else if (ratio > 0.8) {
-			firstHeaderColor = Color.RED;
-		}
-		
-		this.firstHeaderLabel.setTextFill(firstHeaderColor);
 	}
 	
 	private void setExpenseCategoriesHeaderLabels() {
@@ -163,11 +146,12 @@ public class PiggyExpensesCategoryController implements IPBController {
 		setAddExpenseButtonHandler();
 		createReturnButton();
 		setReturnButtonHandler();
+		setExtraButtonBox();
 	}
 	
 	private void createAddExpenseButton() {
-		this.addExpenseButton = new Button("Add Expense");
-		this.headerGrid.add(this.addExpenseButton, 0, 0);
+		this.addExpenseButton = new Button("+");
+		this.addExpenseButton.setId("action-button");
 	}
 	
 	private void setAddExpenseButtonHandler() {
@@ -180,8 +164,12 @@ public class PiggyExpensesCategoryController implements IPBController {
 	}
 	
 	private void createReturnButton() {
-		this.returnButton = new Button("Return to summary");
-		this.headerGrid.add(this.returnButton, 0, 1);
+		this.returnButton = new Button();
+		this.returnButton.setId("action-button");
+		
+		Image returnImage = new Image(getClass().getClassLoader()
+				.getResourceAsStream("images/ReturnButton.png"));
+		this.returnButton.setGraphic(new ImageView(returnImage));
 	}
 	
 	private void setReturnButtonHandler() {
@@ -195,6 +183,13 @@ public class PiggyExpensesCategoryController implements IPBController {
 				update();
 			}
 		});
+	}
+	
+	private void setExtraButtonBox() {
+		this.extraButtonsBox = new HBox(10);
+		this.extraButtonsBox.getChildren().addAll(
+				this.returnButton, this.addExpenseButton);
+		this.headerGrid.add(this.extraButtonsBox, 0, 1);
 	}
 	
 	private void setButtonsAvailability(boolean available) {
@@ -213,7 +208,7 @@ public class PiggyExpensesCategoryController implements IPBController {
 		if (expensesDetailsViewFlag) {
 			this.headerLabel.setText(selectedExpenseCategory.getName().getName() + " expenses");
 		} else {
-			this.headerLabel.setText("Expenses in");
+			setHeaderTitle();
 		}
 	}
 	
@@ -226,10 +221,9 @@ public class PiggyExpensesCategoryController implements IPBController {
 				return new PiggyExpenseCell(expensesPane.getWidth(), expensesPane.getHeight());
 			}
 		});
-		
-		double listHeight = this.contentListHeight - (headerBox.getPrefHeight() + headerGrid.getPrefHeight());
-		this.expenseCategoriesListView.setMinSize(this.contentListWidth, listHeight);
-		this.expenseCategoriesListView.setMaxSize(this.contentListWidth, listHeight);
+
+		this.expenseCategoriesListView.setMinSize(this.contentListWidth, this.contentListHeight);
+		this.expenseCategoriesListView.setMaxSize(this.contentListWidth, this.contentListHeight);
 	}
 	
 	private void createExpenseListView() {
@@ -243,9 +237,8 @@ public class PiggyExpensesCategoryController implements IPBController {
 			}
 		});
 		
-		double listHeight = this.contentListHeight - (headerBox.getPrefHeight() + headerGrid.getPrefHeight());
-		this.expensesListView.setMinSize(this.contentListWidth, listHeight);
-		this.expensesListView.setMaxSize(this.contentListWidth, listHeight);
+		this.expensesListView.setMinSize(this.contentListWidth, this.contentListHeight);
+		this.expensesListView.setMaxSize(this.contentListWidth, this.contentListHeight);
 	}
 	
 	private void setExpenseCategoryListHandlers() {

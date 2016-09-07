@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class PiggyFutureExpenseCell extends AbstractPiggyCell<PiggyFutureExpense> {
 
@@ -77,6 +79,10 @@ public class PiggyFutureExpenseCell extends AbstractPiggyCell<PiggyFutureExpense
 		this.cellGrid.add(this.futureExpenseAmount, 2, 0);
 		this.cellGrid.add(this.removeFutureExpenseButton, 3, 0);
 		this.cellGrid.add(this.setFutureDateButton, 4, 0);
+		
+		this.futureExpenseCategoryName.setFont(Font.font(null, FontWeight.BOLD, -1));
+		this.removeFutureExpenseButton.setId("list-action-button");
+		this.setFutureDateButton.setId("list-action-button");
 	}
 	
 	private void configureButtons() {

@@ -14,6 +14,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class PiggyAddExpenseController implements IPBTopStageController {
 
@@ -83,6 +85,22 @@ public class PiggyAddExpenseController implements IPBTopStageController {
 				}
 			}
 		});
+	}
+	
+	@FXML
+	private void handleOnKeyReleased(final KeyEvent keyEvent) {
+		KeyCode eventKeyCode = keyEvent.getCode();
+		
+		switch (eventKeyCode) {
+			case ESCAPE:
+				handleDiscardButtonReleased();
+				break;
+			case ENTER:
+				handleConfirmButtonReleased();
+				break;
+			default:
+				return;
+		}
 	}
 
 	@FXML

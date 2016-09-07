@@ -8,23 +8,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="550.0" maxWidth="600.0" minHeight="550.0" minWidth="600.0" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piggybank.app.controller.PiggyFutureExpensesController">
+<VBox id="content-window" stylesheets="@../MainWindow.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piggybank.app.controller.PiggyFutureExpensesController">
    <children>
-      <HBox fx:id="headerBox" prefHeight="60.0" prefWidth="510.0" spacing="10.0">
+      <HBox id="header-box" spacing="10.0">
          <children>
-            <Label alignment="CENTER" prefHeight="60.0" prefWidth="600.0" text="Future expenses" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
+            <Label id="header-label" alignment="CENTER" prefHeight="60.0" prefWidth="600.0" text="Future expenses" textAlignment="CENTER" />
          </children>
       </HBox>
-      <GridPane fx:id="headerGrid" maxHeight="40.0" maxWidth="600.0" minHeight="40.0" minWidth="600.0" prefHeight="40.0" prefWidth="600.0">
+      <GridPane id="second-header-box">
          <columnConstraints>
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="325.0" minWidth="325.0" prefWidth="325.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="275.0" prefWidth="275.0" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.0" minWidth="264.0" prefWidth="264.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
@@ -35,43 +30,31 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <HBox prefHeight="15.0" prefWidth="243.0" spacing="10.0">
+                  <HBox prefHeight="15.0" prefWidth="275.0" spacing="10.0">
                      <children>
-                        <Label prefHeight="15.0" prefWidth="170.0" text="Total savings:">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="totalSavingsLabel" alignment="CENTER_RIGHT" prefHeight="16.0">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
+                        <Label id="header-text" alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="170.0" text="Total savings:" />
+                        <Label id="header-text-value" fx:id="totalSavingsLabel" alignment="BOTTOM_LEFT" prefHeight="30.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="15.0" prefWidth="243.0" spacing="10.0" GridPane.rowIndex="1">
                      <children>
-                        <Label prefHeight="15.0" prefWidth="170.0" text="Total future expenses:">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="totalFutureExpensesLabel" alignment="CENTER_RIGHT" prefHeight="16.0">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
+                        <Label id="header-text" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="170.0" text="Total future expenses:" />
+                        <Label id="header-text-value" fx:id="totalFutureExpensesLabel" alignment="TOP_LEFT" prefHeight="30.0" />
                      </children>
                   </HBox>
                </children>
             </GridPane>
             <HBox>
                <children>
-                  <Button mnemonicParsing="false" onMouseReleased="#handleAddFutureExpenseButton" text="Add Future Expense" />
+                  <Pane prefHeight="60.0" prefWidth="26.0">
+                     <children>
+                        <Button id="action-button" layoutY="32.0" mnemonicParsing="false" onMouseReleased="#handleAddFutureExpenseButton" text="+" />
+                     </children>
+                  </Pane>
                </children>
             </HBox>
          </children>

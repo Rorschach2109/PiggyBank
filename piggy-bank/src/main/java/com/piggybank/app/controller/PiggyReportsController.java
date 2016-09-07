@@ -18,24 +18,17 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 
 public class PiggyReportsController implements IPBController {
 
 	@FXML
-	private Label monthYearLabel;
+	private Label headerLabel;
 	@FXML
 	private Label totalOutcomesLabel;
 	@FXML
 	private Label totalIncomesLabel;
 	@FXML
 	private Label balanceLabel;
-	@FXML
-	private HBox headerBox;
-	@FXML
-	private GridPane headerGrid;
 	@FXML
 	private AnchorPane reportsAnchor;
 	
@@ -50,6 +43,7 @@ public class PiggyReportsController implements IPBController {
 	
 	private final PiggyBankIncomes piggyIncomesRemote;
 	private final PiggyBankExpenses piggyExpensesRemote;
+	private final String headerText;
 	
 	{
 		this.currentDate = LocalDate.now();
@@ -58,11 +52,12 @@ public class PiggyReportsController implements IPBController {
 		this.totalExpensesAmount = 0.0;
 		this.piggyIncomesRemote = new PiggyBankIncomes();
 		this.piggyExpensesRemote = new PiggyBankExpenses();
+		this.headerText = "Report from ";
 	}
 	
 	@Override
-	public void init(double width, double height) {
-		configurePieChart(width, height);
+	public void init() {
+		configurePieChart();
 		update();
 	}
 	
@@ -83,7 +78,7 @@ public class PiggyReportsController implements IPBController {
 	}
 	
 	private void setCurrentMonthYear() {
-		this.monthYearLabel.setText(
+		this.headerLabel.setText(this.headerText + 
 				LocalDateFormatter.getMonthYearStringFromDate(this.currentDate));
 	}
 	
@@ -111,35 +106,26 @@ public class PiggyReportsController implements IPBController {
 	
 	private void setSummaryLabels() {
 		this.totalOutcomesLabel.setText("-" + String.valueOf(this.totalExpensesAmount));
-		this.totalOutcomesLabel.setTextFill(Color.RED);
 		this.totalIncomesLabel.setText("+" + String.valueOf(this.totalIncomesAmount));
-		this.totalIncomesLabel.setTextFill(Color.GREEN);
 		setBalanceLabel();
 	}
 	
 	private void setBalanceLabel() {
 		double balance = this.totalIncomesAmount - this.totalExpensesAmount;
 		String balanceSign = "";
-		Color balanceColor = Color.BLACK;
 		
 		if (balance > 0.0) {
 			balanceSign = "+";
-			balanceColor = Color.GREEN;
-		} else {
-			balanceColor = Color.RED;
 		}
 		
 		this.balanceLabel.setText(balanceSign + String.valueOf(balance));
-		this.balanceLabel.setTextFill(balanceColor);
 	}
 	
-	private void configurePieChart(double width, double height) {
-		double pieChartHeight = height - (this.headerBox.getPrefHeight() +
-				this.headerGrid.getPrefHeight());
-		
+	private void configurePieChart() {
 		this.outcomesPieChart.setLegendSide(Side.TOP);
 		this.outcomesPieChart.setTitle("Outcomes");
-		this.outcomesPieChart.setMaxSize(width * 0.9, pieChartHeight* 0.9);
+		this.outcomesPieChart.setMaxSize(this.reportsAnchor.getPrefWidth() * 0.9, 
+				this.reportsAnchor.getPrefHeight() * 0.9);
 		this.reportsAnchor.getChildren().add(this.outcomesPieChart);
 	}
 	

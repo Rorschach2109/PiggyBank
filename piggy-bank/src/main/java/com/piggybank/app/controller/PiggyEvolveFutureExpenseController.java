@@ -24,6 +24,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class PiggyEvolveFutureExpenseController implements IPBTopStageController {
 
@@ -117,6 +119,22 @@ public class PiggyEvolveFutureExpenseController implements IPBTopStageController
 		String categoryNameString = this.categoryNameLabel.getText();
 		return this.piggyExpensesRemote.getExpensesCategoriesByMonthYearName(expenseDate.getMonth(),
 				Year.of(expenseDate.getYear()), categoryNameString);
+	}
+	
+	@FXML
+	private void handleOnKeyReleased(final KeyEvent keyEvent) {
+		KeyCode eventKeyCode = keyEvent.getCode();
+		
+		switch (eventKeyCode) {
+			case ESCAPE:
+				handleDiscardButtonReleased();
+				break;
+			case ENTER:
+				handleConfirmButtonReleased();
+				break;
+			default:
+				return;
+		}
 	}
 	
 	@FXML

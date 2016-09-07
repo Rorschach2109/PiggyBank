@@ -8,7 +8,6 @@ import com.piggybank.server.model.PiggyExpenseCategory;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -40,21 +39,22 @@ public class PiggyExpenseCell extends AbstractPiggyCell<PiggyExpenseCategory> {
 		this.predictedCostLabel.setText(String.valueOf(expenseCategory.getPredictedAmount()));
 		
 		double expenseRatio = expenseCategory.getRealAmount() / expenseCategory.getPredictedAmount();
-		this.progressBar.setProgress(expenseRatio);
-		setRealCostLabelColor(expenseCategory);
+		setProgressBar(expenseRatio);
 	}
 	
-	private final void setRealCostLabelColor(PiggyExpenseCategory expenseCategory) {
-		double ratio = expenseCategory.getRealAmount() / expenseCategory.getPredictedAmount();
-		Color realCostColor = Color.GREEN;
+	private void setProgressBar(double expenseRatio) {
+		this.progressBar.setProgress(expenseRatio);
 		
-		if (ratio > 0.5 && ratio <= 0.8) {
-			realCostColor = Color.ORANGE;
-		} else if (ratio > 0.8) {
-			realCostColor = Color.RED;
+		String progressBarStyleString = "-fx-accent: ";
+		if (expenseRatio < 0.5) {
+			progressBarStyleString += "green;";
+		} else if (expenseRatio < 0.8) {
+			progressBarStyleString += "orange;";
+		} else {
+			progressBarStyleString += "red;";
 		}
-		
-		this.realCostLabel.setTextFill(realCostColor);
+
+		this.progressBar.setStyle(progressBarStyleString);		
 	}
 	
 	private final void setColumnConstraints() {
@@ -78,7 +78,6 @@ public class PiggyExpenseCell extends AbstractPiggyCell<PiggyExpenseCategory> {
 		this.cellGrid.add(this.predictedCostLabel, 1, 1);
 		
 		this.expenseCategoryTitleLabel.setFont(Font.font(null, FontWeight.BOLD, 12));
-		this.predictedCostLabel.setTextFill(Color.GRAY);
 		this.predictedCostLabel.setFont(Font.font(null, FontWeight.BOLD, 10));
 		
 		double firstColumnWidthPercentage = this.cellGrid.getColumnConstraints()

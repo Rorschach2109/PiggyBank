@@ -12,6 +12,7 @@ import com.piggybank.server.model.PiggyIncome;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,11 +21,26 @@ public class PiggyMainWindowController implements IPBController {
 	
 	@FXML
 	private Pane contentPane;
+	@FXML
+	private Button balanceButton;
+	@FXML
+	private Button monthPlannerButton;
+	@FXML
+	private Button expensesButton;
+	@FXML
+	private Button futureButton;
+	@FXML
+	private Button incomesButton;
+	@FXML
+	private Button reportsButton;
+	@FXML
+	private Button savingsButton;
 	
 	private IPBController currentController;
 	private Stage topStage;
 	private Stage mainStage;
 	
+	private Button selectedButton;
 	private final LayoutManager layoutManager;
 	
 	public PiggyMainWindowController() {
@@ -93,6 +109,12 @@ public class PiggyMainWindowController implements IPBController {
 		topStage.close();
 	}
 	
+	@Override
+	public void init() {
+		this.selectedButton = this.balanceButton;
+		handleBalanceButtonReleased();
+	}
+
 	private void changeContentView(String viewResourcePath) {
 		Scene scene = layoutManager.loadScene(viewResourcePath);
 		this.currentController = (IPBController) layoutManager.getCurrentController();
@@ -123,9 +145,13 @@ public class PiggyMainWindowController implements IPBController {
 		this.topStage.show();
 	}
 	
-	private void update() {
-		this.currentController.init(contentPane.getWidth(), contentPane.getHeight());
+	private void update(Button selected) {
+		this.currentController.init();
 		this.currentController.setMainWindowController(this);
+		
+		this.selectedButton.setId("menu-button");
+		this.selectedButton = selected;
+		this.selectedButton.setId("menu-button-pressed");
 	}
 	
 	private void configureNewStage(Scene scene, String stageTitle) {
@@ -139,49 +165,49 @@ public class PiggyMainWindowController implements IPBController {
 	
 	@FXML
 	private void initialize() {
-		handleBalanceButtonReleased();
+		
 	}
 	
 	
 	@FXML
 	private void handleBalanceButtonReleased() {
 		changeContentView(ResourcePathFinder.PB_BALANCE_VIEW);
-		update();
+		update(this.balanceButton);
 	}
 	
 	@FXML
 	private void handleMonthPlannerButtonReleased() {
 		changeContentView(ResourcePathFinder.PB_MONTH_PLANNER_VIEW);
-		update();
+		update(this.monthPlannerButton);
 	}
 	
 	@FXML
 	private void handleExpensesButtonReleased() {
 		changeContentView(ResourcePathFinder.PB_EXPENSES_CATEGORY_VIEW);
-		update();
+		update(this.expensesButton);
 	}
 	
 	@FXML
 	private void handleFutureExpensesButtonReleased() {
 		changeContentView(ResourcePathFinder.PB_FUTURE_EXPENSES_VIEW);
-		update();
+		update(this.futureButton);
 	}
 	
 	@FXML
 	private void handleIncomesButtonReleased() {
 		changeContentView(ResourcePathFinder.PB_INCOMES_VIEW);
-		update();
+		update(this.incomesButton);
 	}
 	
 	@FXML
 	private void handleReportsButtonReleased() {
 		changeContentView(ResourcePathFinder.PB_REPORTS_VIEW);
-		update();
+		update(this.reportsButton);
 	}
 	
 	@FXML
 	private void handleSavingsButtonReleased() {
 		changeContentView(ResourcePathFinder.PB_SAVINGS_VIEW);
-		update();
+		update(this.savingsButton);
 	}
 }

@@ -11,26 +11,35 @@ import com.piggybank.server.model.PiggyIncome;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class PiggyPlanIncomeController implements IPBTopStageController {
-	
-	private Predicate<PiggyIncome> confirmHandler;
-	private Runnable discardHandler;
-	private LocalDate currentDate ;
-	
+		
 	@FXML
-	private Label monthYearLabel;
+	private Label headerLabel;
 	@FXML
 	private TextField incomeTitleField;
 	@FXML
 	private TextField incomeAmountField;
 	@FXML
 	private Label errorLabel;
+
+	private Predicate<PiggyIncome> confirmHandler;
+	private Runnable discardHandler;
+	private LocalDate currentDate ;
+	
+	private final String headerText;
+	
+	{
+		this.headerText = "Plan Income ";
+	}
 	
 	@Override
 	public void setDate(LocalDate date) {
 		this.currentDate = date;
-		this.monthYearLabel.setText(LocalDateFormatter.getMonthYearStringFromDate(this.currentDate));
+		this.headerLabel.setText(this.headerText + 
+				LocalDateFormatter.getMonthYearStringFromDate(this.currentDate));
 	}
 	
 	@Override
@@ -55,6 +64,22 @@ public class PiggyPlanIncomeController implements IPBTopStageController {
 	
 	@Override
 	public void init() {
+	}
+	
+	@FXML
+	private void handleOnKeyReleased(final KeyEvent keyEvent) {
+		KeyCode eventKeyCode = keyEvent.getCode();
+		
+		switch (eventKeyCode) {
+			case ESCAPE:
+				handleDiscardButtonReleased();
+				break;
+			case ENTER:
+				handleConfirmButtonReleased();
+				break;
+			default:
+				return;
+		}
 	}
 
 	@FXML

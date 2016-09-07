@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piggybank.app.controller.PiggyMainWindowController">
+<HBox id="main-window" stylesheets="@../MainWindow.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piggybank.app.controller.PiggyMainWindowController">
    <children>
-      <VBox minHeight="550.0" prefHeight="550.0" prefWidth="150.0">
+      <VBox id="menu-button-pane" stylesheets="@../MainWindow.css">
          <children>
-            <Pane prefHeight="100.0" prefWidth="200.0" />
-            <Button mnemonicParsing="false" onMouseReleased="#handleBalanceButtonReleased" prefHeight="60.0" prefWidth="150.0" text="Balance" />
-            <Button mnemonicParsing="false" onMouseReleased="#handleMonthPlannerButtonReleased" prefHeight="60.0" prefWidth="150.0" text="Month Planner" />
-            <Button mnemonicParsing="false" onMouseReleased="#handleExpensesButtonReleased" prefHeight="60.0" prefWidth="150.0" text="Expenses" />
-            <Button mnemonicParsing="false" onMouseReleased="#handleFutureExpensesButtonReleased" prefHeight="60.0" prefWidth="150.0" text="Future Expenses" />
-            <Button mnemonicParsing="false" onMouseReleased="#handleIncomesButtonReleased" prefHeight="60.0" prefWidth="150.0" text="Incomes" />
-            <Button mnemonicParsing="false" onMouseReleased="#handleReportsButtonReleased" prefHeight="60.0" prefWidth="150.0" text="Reports" />
-            <Button mnemonicParsing="false" onMouseReleased="#handleSavingsButtonReleased" prefHeight="60.0" prefWidth="150.0" text="Savings" />
+            <Pane prefHeight="100.0" prefWidth="150.0">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <viewport>
+                        <Rectangle2D height="100.0" width="150.0" />
+                     </viewport>
+                     <image>
+                        <Image url="@../images/Logo.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
+            <Button id="menu-button" fx:id="balanceButton" mnemonicParsing="false" onMouseReleased="#handleBalanceButtonReleased" text="Balance" />
+            <Button id="menu-button" fx:id="monthPlannerButton" mnemonicParsing="false" onMouseReleased="#handleMonthPlannerButtonReleased" text="Month Planner" />
+            <Button id="menu-button" fx:id="expensesButton" mnemonicParsing="false" onMouseReleased="#handleExpensesButtonReleased" text="Expenses" />
+            <Button id="menu-button" fx:id="futureButton" mnemonicParsing="false" onMouseReleased="#handleFutureExpensesButtonReleased" text="Future Expenses" />
+            <Button id="menu-button" fx:id="incomesButton" mnemonicParsing="false" onMouseReleased="#handleIncomesButtonReleased" text="Incomes" />
+            <Button id="menu-button" fx:id="reportsButton" mnemonicParsing="false" onMouseReleased="#handleReportsButtonReleased" text="Reports" />
+            <Button id="menu-button" fx:id="savingsButton" mnemonicParsing="false" onMouseReleased="#handleSavingsButtonReleased" text="Savings" />
          </children>
       </VBox>
-      <Pane fx:id="contentPane" maxHeight="550.0" maxWidth="600.0" minHeight="550.0" minWidth="600.0" prefHeight="550.0" prefWidth="600.0" />
+      <Pane id="content-window" fx:id="contentPane" />
    </children>
 </HBox>

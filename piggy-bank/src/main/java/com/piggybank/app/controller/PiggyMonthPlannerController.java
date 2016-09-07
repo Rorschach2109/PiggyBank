@@ -29,7 +29,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class PiggyMonthPlannerController implements IPBController {
@@ -77,7 +76,7 @@ public class PiggyMonthPlannerController implements IPBController {
 	}
 	
 	@Override
-	public void init(double width, double height) {
+	public void init() {
 		configureContentLists();
 		setButtonsAvailability(false);
 		configureMonthYearChoiceBox();
@@ -110,6 +109,7 @@ public class PiggyMonthPlannerController implements IPBController {
 		this.incomesList.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				expensesList.getSelectionModel().clearSelection();
 				MultipleSelectionModel<PiggyIncome> selectionModel = incomesList.getSelectionModel();
 				int selectedIndex = selectionModel.getSelectedIndex();
 				
@@ -131,6 +131,7 @@ public class PiggyMonthPlannerController implements IPBController {
 		});
 		
 		this.incomesList.setMinSize(width, height);
+		this.incomesList.setPrefSize(width, height);
 		this.incomesList.setMaxSize(width, height);
 	}
 	
@@ -149,6 +150,7 @@ public class PiggyMonthPlannerController implements IPBController {
 		this.expensesList.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				incomesList.getSelectionModel().clearSelection();
 				MultipleSelectionModel<PiggyExpenseCategory> selectionModel = expensesList.getSelectionModel();
 				
 				if (2 == event.getClickCount() && false == selectionModel.isEmpty()) {
@@ -168,6 +170,7 @@ public class PiggyMonthPlannerController implements IPBController {
 		});
 		
 		this.expensesList.setMinSize(width, height);
+		this.expensesList.setPrefSize(width, height);
 		this.expensesList.setMaxSize(width, height);
 	}
 	
@@ -241,16 +244,12 @@ public class PiggyMonthPlannerController implements IPBController {
 	
 	private void setPredictedBalanceLabel() {
 		double predictedBalance = this.currentPredictedIncomesAmount - this.currentPredictedExpensesAmount;
-		Color predictedBalanceColor = Color.BLACK;
+
 		String predictedBalanceSign = "";
 		if (predictedBalance > 0.0) {
-			predictedBalanceColor = Color.GREEN;
 			predictedBalanceSign = "+";
-		} else if (predictedBalance < 0.0) {
-			predictedBalanceColor = Color.RED;
 		}
 		
-		this.predictedBalanceLabel.setTextFill(predictedBalanceColor);
 		this.predictedBalanceLabel.setText(predictedBalanceSign + String.valueOf(predictedBalance));
 	}
 	

@@ -17,17 +17,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class PiggyPlanExpenseController implements IPBTopStageController {
 	
-	private Predicate<PiggyExpenseCategory> confirmHandler;
-	private Runnable discardHandler;
-	private LocalDate currentDate;
-	
-	private final PiggyBankExpenses piggyExpensesRemote;
-	
 	@FXML
-	private Label monthYearLabel;
+	private Label headerLabel;
 	@FXML
 	private ChoiceBox<PiggyExpenseCategoryName> categoryNameChoiceBox;
 	@FXML
@@ -35,14 +31,23 @@ public class PiggyPlanExpenseController implements IPBTopStageController {
 	@FXML
 	private Label errorLabel;
 	
+	private Predicate<PiggyExpenseCategory> confirmHandler;
+	private Runnable discardHandler;
+	private LocalDate currentDate;
+	
+	private final PiggyBankExpenses piggyExpensesRemote;
+	private final String headerText;
+	
 	{
 		this.piggyExpensesRemote = new PiggyBankExpenses();
+		this.headerText = "Plan Expense ";
 	}
 	
 	@Override
 	public void setDate(LocalDate date) {
 		this.currentDate = date;
-		this.monthYearLabel.setText(LocalDateFormatter.getMonthYearStringFromDate(this.currentDate));
+		this.headerLabel.setText(this.headerText + 
+				LocalDateFormatter.getMonthYearStringFromDate(this.currentDate));
 	}
 	
 	@Override
@@ -87,6 +92,22 @@ public class PiggyPlanExpenseController implements IPBTopStageController {
 		List<PiggyExpenseCategoryName> categoryNames = this.piggyExpensesRemote.getActiveExpenseCategoryNames();
 		this.categoryNameChoiceBox.setItems(
 				FXCollections.observableArrayList(categoryNames));
+	}
+	
+	@FXML
+	private void handleOnKeyReleased(final KeyEvent keyEvent) {
+		KeyCode eventKeyCode = keyEvent.getCode();
+		
+		switch (eventKeyCode) {
+			case ESCAPE:
+				handleDiscardButtonReleased();
+				break;
+			case ENTER:
+				handleConfirmButtonReleased();
+				break;
+			default:
+				return;
+		}
 	}
 	
 	@FXML
