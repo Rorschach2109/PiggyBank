@@ -88,7 +88,8 @@ public class PiggyExpense implements java.io.Serializable, Comparable<PiggyExpen
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.title, this.date, this.category);
+		return Objects.hash(this.title, this.date, 
+				this.category, this.amount);
 	}
 
 	@Override
@@ -106,9 +107,10 @@ public class PiggyExpense implements java.io.Serializable, Comparable<PiggyExpen
 		}
 		
 		PiggyExpense expense = (PiggyExpense) object;
-		return this.title.equals(expense.title) &&
+		return this.title.toLowerCase().equals(expense.title.toLowerCase()) &&
 				this.date.equals(expense.date) && 
-				this.category.equals(expense.category);
+				this.category.equals(expense.category) &
+				this.amount == expense.amount;
 	}
 
 	@Override
@@ -118,6 +120,7 @@ public class PiggyExpense implements java.io.Serializable, Comparable<PiggyExpen
 			return compareResult;
 		}
 		
-		return this.title.compareTo(expense.title);
+		return this.title.toLowerCase()
+				.compareTo(expense.title.toLowerCase());
 	}
 }

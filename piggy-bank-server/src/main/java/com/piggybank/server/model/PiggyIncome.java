@@ -115,7 +115,7 @@ public class PiggyIncome implements java.io.Serializable, Comparable<PiggyIncome
 		}
 		
 		PiggyIncome income = (PiggyIncome) object;
-		return this.name.equals(income.name) && 
+		return this.name.toLowerCase().equals(income.name.toLowerCase()) && 
 				this.month.equals(income.month) &&
 				this.year.equals(income.year) &&
 				this.amount == income.amount;
@@ -133,6 +133,6 @@ public class PiggyIncome implements java.io.Serializable, Comparable<PiggyIncome
 			return compareResult;
 		}
 		
-		return this.name.compareTo(income.name);
+		return this.name.toLowerCase().compareTo(income.name.toLowerCase());
 	}
 }

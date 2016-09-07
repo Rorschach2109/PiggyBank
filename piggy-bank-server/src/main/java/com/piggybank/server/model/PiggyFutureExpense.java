@@ -100,7 +100,7 @@ public class PiggyFutureExpense implements java.io.Serializable, Comparable<Pigg
 		}
 		
 		PiggyFutureExpense futureExpense = (PiggyFutureExpense) object;
-		return this.title.equals(futureExpense.title) && 
+		return this.title.toLowerCase().equals(futureExpense.title.toLowerCase()) && 
 				this.categoryName.equals(futureExpense.categoryName);
 	}
 
@@ -111,6 +111,6 @@ public class PiggyFutureExpense implements java.io.Serializable, Comparable<Pigg
 			return compareResult;
 		}
 		
-		return this.title.compareTo(futureExpense.title);
+		return this.title.compareTo(futureExpense.title.toLowerCase());
 	}
 }
