@@ -4,6 +4,7 @@ import java.time.Month;
 import java.time.Year;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,7 @@ public class PiggyIncome implements java.io.Serializable, Comparable<PiggyIncome
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int incomeId;
 	
+	@Column(columnDefinition = "varchar(60) COLLATE utf8_bin")
 	private String name;
 	private double amount;
 	
@@ -97,7 +99,8 @@ public class PiggyIncome implements java.io.Serializable, Comparable<PiggyIncome
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.name, this.month, this.year, this.amount);
+		return Objects.hash(this.name.toLowerCase(), this.month, 
+				this.year, this.amount);
 	}
 
 	@Override
@@ -133,6 +136,11 @@ public class PiggyIncome implements java.io.Serializable, Comparable<PiggyIncome
 			return compareResult;
 		}
 		
-		return this.name.toLowerCase().compareTo(income.name.toLowerCase());
+		compareResult = this.name.toLowerCase().compareTo(income.name.toLowerCase());
+		if (0 != compareResult) {
+			return compareResult;
+		}
+		
+		return Double.valueOf(this.amount).compareTo(income.amount);
 	}
 }
