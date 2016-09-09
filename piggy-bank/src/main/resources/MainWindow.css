@@ -292,15 +292,41 @@
 	-fx-background-color: rgb(230, 230, 230);
 }
 
-#second-window-button:focused {
-	-fx-background-color: rgb(230, 230, 230);
-}
-
-
 #error-text {
 	-fx-pref-height: 30px;
 	-fx-font-weight: bold;
 	-fx-font-size: 10px;
 	-fx-wrap-text: true;
 	-fx-text-fill: #b81212;
+}
+
+.chart-title {
+	-fx-font-size: 13px;
+	-fx-font-weight: bold;
+	-fx-text-fill: back-color;
+}
+
+.chart-legend {
+	-fx-background-color: transparent;
+}
+
+.chart-legend-item {
+	-fx-font-size: 11px;
+}
+
+.chart-pie-label-line {
+	-fx-stroke: back-color;
+	-fx-fill: back-color;
+}
+ 
+.chart-pie-label {
+	-fx-font-size: 9px;
+	-fx-font-weight: bold;
+	-fx-text-fill: back-color;
+}
+
+.axis-label {
+	-fx-font-size: 11px;
+	-fx-font-weight: bold;
+	-fx-text-fill: back-color; 
 }

@@ -35,8 +35,8 @@ public class PiggyExpenseCell extends AbstractPiggyCell<PiggyExpenseCategory> {
 	@Override
 	protected void addItem(PiggyExpenseCategory expenseCategory) {
 		this.expenseCategoryTitleLabel.setText(expenseCategory.getName().getName());
-		this.realCostLabel.setText(String.valueOf(expenseCategory.getRealAmount()));
-		this.predictedCostLabel.setText(String.valueOf(expenseCategory.getPredictedAmount()));
+		this.realCostLabel.setText(String.format("%.2f", expenseCategory.getRealAmount()));
+		this.predictedCostLabel.setText(String.format("%.2f", expenseCategory.getPredictedAmount()));
 		
 		double expenseRatio = expenseCategory.getRealAmount() / expenseCategory.getPredictedAmount();
 		setProgressBar(expenseRatio);

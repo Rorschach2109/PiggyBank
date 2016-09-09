@@ -15,7 +15,6 @@ import com.piggybank.server.model.PiggyFutureExpense;
 import com.piggybank.server.model.PiggySaving;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -86,19 +85,13 @@ public class PiggyFutureExpensesController implements IPBController {
 			public void handle(MouseEvent event) {
 				MultipleSelectionModel<PiggyFutureExpense> selectionModel = futureExpensesList.getSelectionModel();
 				
-				int selectedIndex = selectionModel.getSelectedIndex();
-				
 				if (2 == event.getClickCount() && false == selectionModel.isEmpty()) {
 					PiggyFutureExpense selectedFutureExpense = selectionModel.getSelectedItem();
 					
 					mainWindowController.get().showAddFutureExpense(selectionModel.getSelectedItem(),
 							futureExpense -> {
-								boolean editResult = editFutureExpense(selectedFutureExpense, futureExpense);
-								if (false == editResult) {
-									futureExpensesList.getItems().add(selectedIndex, selectedFutureExpense);
-								}
 								futureExpensesList.getSelectionModel().clearSelection();
-								return editResult;
+								return editFutureExpense(selectedFutureExpense, futureExpense);
 							});
 				}
 			}
@@ -127,7 +120,7 @@ public class PiggyFutureExpensesController implements IPBController {
 			totalSavings += saving.getAmount();
 		}
 		
-		this.totalSavingsLabel.setText(String.valueOf(totalSavings));
+		this.totalSavingsLabel.setText(String.format("%.2f", totalSavings));
 	}
 	
 	private void setHeaderLabels() {
@@ -136,7 +129,15 @@ public class PiggyFutureExpensesController implements IPBController {
 			totalFutureExpensesAmount += futureExpense.getAmount();
 		}
 		
-		this.totalFutureExpensesLabel.setText(String.valueOf(totalFutureExpensesAmount));
+		this.totalFutureExpensesLabel.setText(String.format("%.2f", totalFutureExpensesAmount));
+	}
+	
+	private void addToFutureExpensesList(PiggyFutureExpense futureExpense) {
+		List<PiggyFutureExpense> currentFutureExpenses = this.futureExpensesList.getItems();
+		if (false == currentFutureExpenses.contains(futureExpense)) {
+			currentFutureExpenses.add(futureExpense);
+			Collections.sort(currentFutureExpenses);
+		}
 	}
 	
 	private boolean addFutureExpense(PiggyFutureExpense futureExpense) {
@@ -146,13 +147,9 @@ public class PiggyFutureExpensesController implements IPBController {
 		if (newFutureExpenseFlag) {
 			PiggyFutureExpense newFutureExpense = this.piggyExpensesRemote.addFutureExpense(futureExpense);
 			
-			ObservableList<PiggyFutureExpense> futureExpenses = this.futureExpensesList.getItems();
-			futureExpenses.add(newFutureExpense);
-			Collections.sort(futureExpenses);
-			this.futureExpensesList.setItems(futureExpenses);
+			addToFutureExpensesList(newFutureExpense);
+			setHeaderLabels();
 		}
-		
-		setHeaderLabels();
 		
 		return newFutureExpenseFlag;
 	}
@@ -165,8 +162,15 @@ public class PiggyFutureExpensesController implements IPBController {
 	}
 	
 	private boolean editFutureExpense(PiggyFutureExpense selectedFutureExpense, PiggyFutureExpense futureExpense) {
-		removeFutureExpense(selectedFutureExpense);
-		return addFutureExpense(futureExpense);
+		boolean addResult = addFutureExpense(futureExpense);
+		
+		if (addResult) {
+			this.futureExpensesList.getItems().remove(selectedFutureExpense);
+			this.piggyExpensesRemote.removeFutureExpense(selectedFutureExpense);
+			setHeaderLabels();
+		}
+		
+		return addResult;
 	}
 	
 	private boolean addExpense(PiggyExpense expense) {

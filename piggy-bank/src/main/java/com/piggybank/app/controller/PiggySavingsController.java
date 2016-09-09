@@ -92,11 +92,11 @@ public class PiggySavingsController implements IPBController {
 	}
 	
 	private void setTotalSavingsLabel() {
-		this.totalSavingsLabel.setText(String.valueOf(getTotalSavings()));
+		this.totalSavingsLabel.setText(String.format("%.2f", getTotalSavings()));
 	}
 	
 	private void setCurrentYearSavingsLabel() {
-		this.yearlySavingsLabel.setText(String.valueOf(getSavingsByYear()));
+		this.yearlySavingsLabel.setText(String.format("%.2f", getSavingsByYear()));
 	}
 	
 	private double getTotalSavings() {

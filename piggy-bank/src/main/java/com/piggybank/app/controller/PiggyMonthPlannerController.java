@@ -111,19 +111,14 @@ public class PiggyMonthPlannerController implements IPBController {
 			public void handle(MouseEvent event) {
 				expensesList.getSelectionModel().clearSelection();
 				MultipleSelectionModel<PiggyIncome> selectionModel = incomesList.getSelectionModel();
-				int selectedIndex = selectionModel.getSelectedIndex();
 				
 				if (2 == event.getClickCount() && false == selectionModel.isEmpty()) {
 					PiggyIncome selectedIncome = selectionModel.getSelectedItem();
 					
 					mainWindowController.get().showAddIncomeWindow(selectedIncome, 
 							income -> {
-								boolean editResult = editIncome(selectedIncome, income);
-								if (false == editResult) {
-									incomesList.getItems().add(selectedIndex, selectedIncome);
-								}
 								incomesList.getSelectionModel().clearSelection();
-								return editResult;
+								return editIncome(selectedIncome, income);
 							},
 							LocalDate.of(selectedYear.getValue(), selectedMonth, 1));
 				}
@@ -237,8 +232,8 @@ public class PiggyMonthPlannerController implements IPBController {
 	}
 	
 	private void setHeaderLabels() {
-		this.predictedExpensesLabel.setText(String.valueOf("-" + this.currentPredictedExpensesAmount));
-		this.predictedIncomesLabel.setText(String.valueOf("+" + this.currentPredictedIncomesAmount));
+		this.predictedExpensesLabel.setText(String.valueOf("-" + String.format("%.2f", this.currentPredictedExpensesAmount)));
+		this.predictedIncomesLabel.setText(String.valueOf("+" + String.format("%.2f", this.currentPredictedIncomesAmount)));
 		setPredictedBalanceLabel();
 	}
 	
@@ -250,7 +245,7 @@ public class PiggyMonthPlannerController implements IPBController {
 			predictedBalanceSign = "+";
 		}
 		
-		this.predictedBalanceLabel.setText(predictedBalanceSign + String.valueOf(predictedBalance));
+		this.predictedBalanceLabel.setText(predictedBalanceSign + String.format("%.2f", predictedBalance));
 	}
 	
 	private void refreshContentLists() {
@@ -311,7 +306,7 @@ public class PiggyMonthPlannerController implements IPBController {
 	
 	private boolean addIncome(PiggyIncome income) {
 		boolean newIncomeFlag = this.incomesList.getItems().stream()
-				.noneMatch(listIncome -> listIncome.getName().equals(income.getName()));
+				.noneMatch(listIncome -> listIncome.equals(income));
 		
 		if (newIncomeFlag) {
 			PiggyIncome newIncome = this.piggyIncomesRemote.addIncome(income);
@@ -326,11 +321,13 @@ public class PiggyMonthPlannerController implements IPBController {
 	
 	private boolean editIncome(PiggyIncome oldIncome, PiggyIncome newIncome) {
 		currentPredictedIncomesAmount -= oldIncome.getAmount();
-		incomesList.getItems().remove(oldIncome);
 		
 		boolean addResult = addIncome(newIncome);
 		if (addResult) {
+			incomesList.getItems().remove(oldIncome);
 			this.piggyIncomesRemote.removeIncome(oldIncome);
+		} else {
+			currentPredictedIncomesAmount += oldIncome.getAmount();
 		}
 		return addResult;
 	}

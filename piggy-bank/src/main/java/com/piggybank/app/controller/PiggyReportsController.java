@@ -3,6 +3,7 @@ package com.piggybank.app.controller;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
+import java.util.Collections;
 import java.util.List;
 
 import com.piggybank.app.remote.PiggyBankIncomes;
@@ -75,6 +76,7 @@ public class PiggyReportsController implements IPBController {
 		Year currentYear = Year.of(this.currentDate.getYear());
 		this.incomesList = this.piggyIncomesRemote.getIncomesByMonthYear(currentMonth, currentYear);
 		this.expenseCategoriesList = this.piggyExpensesRemote.getExpensesCategoriesByMonthYear(currentMonth, currentYear);
+		Collections.sort(this.expenseCategoriesList);
 	}
 	
 	private void setCurrentMonthYear() {
@@ -105,8 +107,8 @@ public class PiggyReportsController implements IPBController {
 	}
 	
 	private void setSummaryLabels() {
-		this.totalOutcomesLabel.setText("-" + String.valueOf(this.totalExpensesAmount));
-		this.totalIncomesLabel.setText("+" + String.valueOf(this.totalIncomesAmount));
+		this.totalOutcomesLabel.setText("-" + String.format("%.2f", this.totalExpensesAmount));
+		this.totalIncomesLabel.setText("+" + String.format("%.2f", this.totalIncomesAmount));
 		setBalanceLabel();
 	}
 	
@@ -118,7 +120,7 @@ public class PiggyReportsController implements IPBController {
 			balanceSign = "+";
 		}
 		
-		this.balanceLabel.setText(balanceSign + String.valueOf(balance));
+		this.balanceLabel.setText(balanceSign + String.format("%.2f", balance));
 	}
 	
 	private void configurePieChart() {

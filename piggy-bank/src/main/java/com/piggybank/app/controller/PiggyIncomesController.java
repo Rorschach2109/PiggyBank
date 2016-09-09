@@ -62,7 +62,7 @@ public class PiggyIncomesController implements IPBController {
 			totalIncomesAmount += income.getAmount();
 		}
 		
-		this.totalIncomesLabel.setText(String.valueOf(totalIncomesAmount));
+		this.totalIncomesLabel.setText(String.format("%.2f", totalIncomesAmount));
 	}
 		
 	private void createExpenseCategoryListView() {

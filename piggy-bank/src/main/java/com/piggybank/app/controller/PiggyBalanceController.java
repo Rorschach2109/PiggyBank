@@ -58,8 +58,8 @@ public class PiggyBalanceController implements IPBController {
 		double incomes = getTotalIncomes();
 		double balance = incomes - outcomes;
 		
-		this.expensesLabel.setText("-" + String.valueOf(outcomes));
-		this.incomesLabel.setText("+" + String.valueOf(incomes));
+		this.expensesLabel.setText("-" + String.format("%.2f", outcomes));
+		this.incomesLabel.setText("+" + String.format("%.2f", incomes));
 		setComputedLabel(this.balanceLabel, balance);
 		setComputedLabel(this.currentSavingsLabel, getCurrentSavings());
 	}
@@ -71,7 +71,7 @@ public class PiggyBalanceController implements IPBController {
 			balanceSign = "+";
 		}
 		
-		label.setText(balanceSign + String.valueOf(amount));
+		label.setText(balanceSign + String.format("%.2f", amount));
 	}
 	
 	private double getTotalOutcomes() {

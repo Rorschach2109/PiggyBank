@@ -50,7 +50,7 @@ public class PiggyFutureExpenseCell extends AbstractPiggyCell<PiggyFutureExpense
 		this.currentFutureExpense = futureExpense;
 		this.futureExpenseCategoryName.setText(futureExpense.getCategoryName().getName());
 		this.futureExpenseTitle.setText(futureExpense.getTitle());
-		this.futureExpenseAmount.setText(String.valueOf(futureExpense.getAmount()));
+		this.futureExpenseAmount.setText(String.format("%.2f", futureExpense.getAmount()));
 	}
 	
 	private final void setColumnsConstraints() {

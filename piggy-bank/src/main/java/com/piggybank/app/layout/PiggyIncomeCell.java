@@ -26,7 +26,7 @@ public class PiggyIncomeCell extends AbstractPiggyCell<PiggyIncome> {
 	@Override
 	protected void addItem(PiggyIncome income) {
 		this.incomeTitleLabel.setText(income.getName());
-		this.incomeAmountLabel.setText(String.valueOf(income.getAmount()));
+		this.incomeAmountLabel.setText(String.format("%.2f", income.getAmount()));
 	}
 
 	private final void setColumnConstraints() {

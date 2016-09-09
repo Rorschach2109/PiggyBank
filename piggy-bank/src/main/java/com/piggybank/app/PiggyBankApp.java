@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class PiggyBankApp extends Application {
 	
-	private final String iconPath = "images/Icon.png";
+	private final String iconPath = "images/Logo.png";
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {

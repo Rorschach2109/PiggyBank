@@ -14,14 +14,14 @@
       <HBox id="header-box" spacing="7.0">
          <children>
             <Button fx:id="previousMonthButton" mnemonicParsing="false" onMouseReleased="#handlePreviousButtonReleased" text="&lt;" />
-            <Label fx:id="headerLabel" id="header-title-label" />
+            <Label id="header-title-label" fx:id="headerLabel" />
             <Button fx:id="nextMonthButton" mnemonicParsing="false" onMouseReleased="#handleNextButtonReleased" text="&gt;" />
          </children>
       </HBox>
-      <GridPane fx:id="headerGrid" id="second-header-box" alignment="CENTER_LEFT" vgap="2.0">
+      <GridPane id="second-header-box" fx:id="headerGrid" alignment="CENTER_LEFT" vgap="2.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.0" minWidth="264.0" prefWidth="264.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="328.0" minWidth="256.0" prefWidth="256.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="264.0" prefWidth="344.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
@@ -30,14 +30,14 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1">
                <children>
-                  <Label fx:id="firstHeaderTextLabel" id="header-text" alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="170.0" text="Total expenses:" />
-                  <Label fx:id="firstHeaderLabel" id="header-text-value" alignment="BOTTOM_LEFT" prefHeight="30.0" />
+                  <Label id="header-text" fx:id="firstHeaderTextLabel" alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="250.0" text="Total expenses:" />
+                  <Label id="header-text-value" fx:id="firstHeaderLabel" alignment="BOTTOM_LEFT" prefHeight="30.0" />
                </children>
             </HBox>
             <HBox prefHeight="17.0" prefWidth="227.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="secondHeaderTextLabel" id="header-text" alignment="TOP_LEFT" prefHeight="25.0" prefWidth="170.0" text="Predicted expenses:" textFill="#00000073" />
-                  <Label fx:id="secondHeaderLabel" id="header-text-value" alignment="TOP_LEFT" prefHeight="30.0" textFill="#d3d7cf" />
+                  <Label id="header-text" fx:id="secondHeaderTextLabel" alignment="TOP_LEFT" prefHeight="25.0" prefWidth="250.0" text="Predicted expenses:" textFill="#00000073" />
+                  <Label id="header-text-value" fx:id="secondHeaderLabel" alignment="TOP_LEFT" prefHeight="30.0" textFill="#d3d7cf" />
                </children>
             </HBox>
          </children>

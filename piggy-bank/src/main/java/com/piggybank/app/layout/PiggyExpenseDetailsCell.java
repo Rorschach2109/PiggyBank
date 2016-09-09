@@ -55,7 +55,7 @@ public class PiggyExpenseDetailsCell extends AbstractPiggyCell<PiggyExpense> {
 		this.expenseDayLabel.setText(expense.getDate().getDayOfWeek().name());
 		this.expenseDateLabel.setText(expense.getDate().toString());
 		this.expenseTitleLabel.setText(expense.getTitle());
-		this.expenseAmountLabel.setText(String.valueOf(expense.getAmount()));
+		this.expenseAmountLabel.setText(String.format("%.2f", expense.getAmount()));
 		setRemoveButtonAvailability();
 	}
 	

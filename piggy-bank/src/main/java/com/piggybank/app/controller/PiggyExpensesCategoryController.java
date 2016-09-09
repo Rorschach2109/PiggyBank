@@ -114,8 +114,8 @@ public class PiggyExpensesCategoryController implements IPBController {
 			realExpenseAmount += expenseCategory.getRealAmount();
 		}
 		
-		this.secondHeaderLabel.setText(String.valueOf(predictedExpenseAmount));
-		this.firstHeaderLabel.setText(String.valueOf(realExpenseAmount));
+		this.secondHeaderLabel.setText(String.format("%.2f", predictedExpenseAmount));
+		this.firstHeaderLabel.setText(String.format("%.2f", realExpenseAmount));
 	}
 	
 	private void setExpensesSummaryLabels() {
