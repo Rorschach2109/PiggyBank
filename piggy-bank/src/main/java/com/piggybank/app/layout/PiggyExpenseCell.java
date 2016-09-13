@@ -48,7 +48,7 @@ public class PiggyExpenseCell extends AbstractPiggyCell<PiggyExpenseCategory> {
 		String progressBarStyleString = "-fx-accent: ";
 		if (expenseRatio < 0.5) {
 			progressBarStyleString += "green;";
-		} else if (expenseRatio < 0.8) {
+		} else if (expenseRatio < 0.9) {
 			progressBarStyleString += "orange;";
 		} else {
 			progressBarStyleString += "red;";
