@@ -293,6 +293,7 @@ public class PiggyExpensesCategoryController implements IPBController {
 	
 	private void handleExpenseCategorySelection(PiggyExpenseCategory selectedExpenseCategory) {
 		List<PiggyExpense> expensesList = selectedExpenseCategory.getExpenses();
+		Collections.sort(expensesList);
 		Collections.reverse(expensesList);
 		
 		this.expensesListView.setItems(
@@ -342,6 +343,7 @@ public class PiggyExpensesCategoryController implements IPBController {
 		
 		expensesList.add(expense);
 		Collections.sort(expensesList);
+		Collections.reverse(expensesList);
 		expensesListView.setItems(expensesList);
 		
 		this.selectedExpenseCategory = this.piggyExpensesRemote.addExpense(expense);
